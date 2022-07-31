@@ -26,11 +26,13 @@ class RecipesRowBinding {
         fun setNumberOfLike(textView: TextView, likes: Int){
             textView.text = likes.toString()
         }
+
         @BindingAdapter("setNumberOfMinute")
         @JvmStatic
         fun setNumberOfMinute(textView: TextView, minutes: Int){
             textView.text = minutes.toString()
         }
+
         @BindingAdapter("applyingVeganColor")
         @JvmStatic
         fun applyingVeganColor(view: View, vegan : Boolean){
