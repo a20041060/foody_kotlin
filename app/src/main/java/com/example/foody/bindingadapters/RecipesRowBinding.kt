@@ -12,28 +12,28 @@ class RecipesRowBinding {
 
     companion object{
 
-        @BindingAdapter("loadImageFromUrl")
+        @BindingAdapter("loadingImageFromUrl")
         @JvmStatic
-        fun loadImageFromUrl(imageView: ImageView, imageUrl: String){
+        fun loadingImageFromUrl(imageView: ImageView, imageUrl: String){
             imageView.load(imageUrl){
                 crossfade(600)
                 error(R.drawable.ic_error_placeholder)
             }
         }
 
-        @BindingAdapter("setNumberOfLikes")
+        @BindingAdapter("setNumberOfLike")
         @JvmStatic
-        fun setNumberOfLikes(textView: TextView, likes: Int){
+        fun setNumberOfLike(textView: TextView, likes: Int){
             textView.text = likes.toString()
         }
-        @BindingAdapter("setNumberOfMinutes")
+        @BindingAdapter("setNumberOfMinute")
         @JvmStatic
-        fun setNumberOfMinutes(textView: TextView, minutes: Int){
+        fun setNumberOfMinute(textView: TextView, minutes: Int){
             textView.text = minutes.toString()
         }
-        @BindingAdapter("applyVeganColor")
+        @BindingAdapter("applyingVeganColor")
         @JvmStatic
-        fun applyVeganColor(view: View, vegan : Boolean){
+        fun applyingVeganColor(view: View, vegan : Boolean){
             if(vegan){
                 when(view){
                     is TextView ->{

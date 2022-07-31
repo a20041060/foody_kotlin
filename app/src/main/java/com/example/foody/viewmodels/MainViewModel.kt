@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import androidx.hilt.lifecycle.ViewModelInject
+import dagger.hilt.android.lifecycle.HiltViewModel
 import androidx.lifecycle.*
 import com.example.foody.Repository
 import com.example.foody.data.database.RecipesEntity
@@ -13,8 +13,10 @@ import com.example.foody.utils.NetworkResult
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import javax.inject.Inject
 
-class MainViewModel @ViewModelInject constructor (
+@HiltViewModel
+class MainViewModel @Inject constructor (
     private val repository: Repository,
     application: Application
 ) : AndroidViewModel(application){
@@ -35,6 +37,7 @@ class MainViewModel @ViewModelInject constructor (
     }
 
     private suspend fun getRecipesSafeCall(queries: Map<String, String>) {
+        recipesResponse.value = NetworkResult.Loading()
         if(hasInternetConnection()){
             try{
                 val response = repository.remote.getRecipes(queries)
@@ -45,6 +48,7 @@ class MainViewModel @ViewModelInject constructor (
                     offlineCacheRecipes(foodRecipe)
                 }
             }catch (e:Exception){
+                recipesResponse.value = NetworkResult.Error("Recipes not found.")
 
             }
         }else{
