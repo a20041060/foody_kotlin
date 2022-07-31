@@ -1,4 +1,4 @@
-package com.example.foody.ui.fragments
+package com.example.foody.ui.fragments.recipes
 
 import android.os.Bundle
 import android.util.Log
@@ -9,17 +9,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.foody.viewmodels.MainViewModel
 import com.example.foody.R
+import com.example.foody.viewmodels.MainViewModel
 import com.example.foody.adapters.RecipesAdapter
 import com.example.foody.databinding.FragmentRecipesBinding
-import com.example.foody.utils.Constants.Companion.API_KEY
 import com.example.foody.utils.NetworkResult
 import com.example.foody.utils.observeOnce
 import com.example.foody.viewmodels.RecipesViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_recipes.view.*
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -51,6 +50,10 @@ class RecipesFragment : Fragment() {
         setupRecyclerView()
     //    requestApiData()
         readDatabase()
+
+        binding.recipesFab.setOnClickListener{
+            findNavController().navigate(R.id.action_recipesFragment_to_recipesBottomSheet)
+        }
 
         return binding.root
     }
