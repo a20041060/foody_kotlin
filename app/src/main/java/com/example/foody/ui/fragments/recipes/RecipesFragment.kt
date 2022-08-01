@@ -64,6 +64,7 @@ class RecipesFragment : Fragment() {
     private fun setupRecyclerView(){
         binding.recyclerview.adapter = mAdapter
         binding.recyclerview.layoutManager = LinearLayoutManager(requireContext())
+        showShimmerEffect()
     }
 
     private fun readDatabase() {
@@ -73,7 +74,7 @@ class RecipesFragment : Fragment() {
                 if(database.isNotEmpty() && !args.backFromBottomSheet){
                     Log.d("RecipesFragment", "readDatabase called!")
                     mAdapter.setData(database[0].foodRecipe)
-                //    hideShimmerEffect()
+                    hideShimmerEffect()
                 }else{
                     requestApiData()
                 }
@@ -87,11 +88,13 @@ class RecipesFragment : Fragment() {
         mainViewModel.recipesResponse.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is NetworkResult.Success -> {
+                    hideShimmerEffect()
                     response.data?.let {
                         mAdapter.setData(it)
                     }
                 }
                 is NetworkResult.Error -> {
+                    hideShimmerEffect()
                     loadDataFromCache()
                     Toast.makeText(
                         requireContext(),
@@ -100,6 +103,7 @@ class RecipesFragment : Fragment() {
                     ).show()
                 }
                 is NetworkResult.Loading -> {
+                    showShimmerEffect()
                 }
             }
         }
@@ -115,14 +119,18 @@ class RecipesFragment : Fragment() {
         }
     }
 
-    private fun showShimmerEffect(){
-//        binding.recyclerview.showShimmer()
-
+    private fun showShimmerEffect() {
+        binding.shimmerFrameLayout.startShimmer()
+        binding.shimmerFrameLayout.visibility = View.VISIBLE
+        binding.recyclerview.visibility = View.GONE
     }
 
-    private fun hideShimmerEffect(){
-//        binding.recyclerview.hideShimmer()
+    private fun hideShimmerEffect() {
+        binding.shimmerFrameLayout.stopShimmer()
+        binding.shimmerFrameLayout.visibility = View.GONE
+        binding.recyclerview.visibility = View.VISIBLE
     }
+
 
     override fun onDestroy() {
         super.onDestroy()
