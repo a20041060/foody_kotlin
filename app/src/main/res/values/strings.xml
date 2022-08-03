@@ -39,4 +39,7 @@
     <string name="whole30">Whole30</string>
     <string name="apply">Apply</string>
     <string name="search">Search</string>
+    <string name="dairy_free">Dairy Free</string>
+    <string name="health">Health</string>
+    <string name="cheap">Cheap</string>
 </resources>
