@@ -39,7 +39,7 @@ class OverviewFragment : Fragment() {
             binding.veganTextView.setTextColor(ContextCompat.getColor(requireContext(),R.color.green))
         }
 
-        if(myBundle.vegan == true){
+        if(myBundle?.vegan){
             binding.veganImageView.setColorFilter(ContextCompat.getColor(requireContext(),R.color.green))
             binding.veganTextView.setTextColor(ContextCompat.getColor(requireContext(),R.color.green))
         }
