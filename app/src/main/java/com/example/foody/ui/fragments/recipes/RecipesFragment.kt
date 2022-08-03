@@ -61,9 +61,9 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
     //    requestApiData()
  //      readDatabase()
 
-        recipesViewModel.readBackOnline.observe(viewLifecycleOwner,{
+        recipesViewModel.readBackOnline.observe(viewLifecycleOwner) {
             recipesViewModel.backOnline = it
-        })
+        }
 
         lifecycleScope.launch{
             networkListener = NetworkListener()
@@ -160,14 +160,14 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
     private fun searchApiData(searchQuery: String) {
         showShimmerEffect()
         mainViewModel.searchRecipes(recipesViewModel.applySearchQuery(searchQuery))
-        mainViewModel.searchRecipesResponse.observe(viewLifecycleOwner,{response->
-            when(response){
-                is NetworkResult.Success ->{
+        mainViewModel.searchRecipesResponse.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is NetworkResult.Success -> {
                     hideShimmerEffect()
                     val foodRecipe = response.data
-                    foodRecipe?.let{mAdapter.setData(it)}
+                    foodRecipe?.let { mAdapter.setData(it) }
                 }
-                is NetworkResult.Error ->{
+                is NetworkResult.Error -> {
                     hideShimmerEffect()
                     loadDataFromCache()
                     Toast.makeText(
@@ -176,20 +176,20 @@ class RecipesFragment : Fragment(), SearchView.OnQueryTextListener {
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-                is NetworkResult.Loading ->{
+                is NetworkResult.Loading -> {
                     showShimmerEffect()
                 }
             }
-        })
+        }
     }
 
     private fun loadDataFromCache(){
         lifecycleScope.launch {
-            mainViewModel.readRecipes.observe(viewLifecycleOwner,{ database->
-                if(database.isNotEmpty()){
+            mainViewModel.readRecipes.observe(viewLifecycleOwner) { database ->
+                if (database.isNotEmpty()) {
                     mAdapter.setData(database[0].foodRecipe)
                 }
-            })
+            }
         }
     }
 

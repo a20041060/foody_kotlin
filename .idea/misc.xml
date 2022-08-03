@@ -13,6 +13,7 @@
         <entry key="app/src/main/res/drawable/ic_search.xml" value="0.1185" />
         <entry key="app/src/main/res/drawable/ic_star.xml" value="0.1975" />
         <entry key="app/src/main/res/font/font.xml" value="0.275" />
+        <entry key="app/src/main/res/layout/activity_details.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.24583333333333332" />
         <entry key="app/src/main/res/layout/fragment_favorite_recipes.xml" value="0.24583333333333332" />

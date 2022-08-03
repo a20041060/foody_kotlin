@@ -1,16 +1,36 @@
 package com.example.foody.bindingadapters
 
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import androidx.navigation.findNavController
 import coil.load
 import com.example.foody.R
+import com.example.foody.models.Result
+import com.example.foody.ui.fragments.recipes.RecipesFragmentDirections
 
 class RecipesRowBinding {
 
     companion object{
+
+        @BindingAdapter("onRecipeClickListener")
+        @JvmStatic
+        fun onRecipeClickListener(recipeRowlayout: ConstraintLayout, result: Result){
+            Log.d("onRecipeClickListener","CALLED")
+            recipeRowlayout.setOnClickListener {
+                try{
+                    val action =
+                        RecipesFragmentDirections.actionRecipesFragmentToDetailsActivity(result)
+                    recipeRowlayout.findNavController().navigate(action)
+                }catch (e:Exception){
+                    Log.d("onRecipeClickListener",e.toString())
+                }
+            }
+        }
 
         @BindingAdapter("loadingImageFromUrl")
         @JvmStatic
