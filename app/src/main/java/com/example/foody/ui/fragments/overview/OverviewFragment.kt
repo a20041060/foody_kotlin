@@ -12,6 +12,7 @@ import com.example.foody.bindingadapters.RecipesRowBinding
 import com.example.foody.databinding.FragmentOverviewBinding
 import com.example.foody.models.Result
 import kotlinx.android.synthetic.main.fragment_overview.view.*
+import org.jsoup.Jsoup
 
 class OverviewFragment : Fragment() {
 
@@ -33,6 +34,11 @@ class OverviewFragment : Fragment() {
         binding.likesTextView.text = myBundle?.aggregateLikes.toString()
         binding.timeTextView.text = myBundle?.readyInMinutes.toString()
         RecipesRowBinding.parseHtml(binding.summaryTextView,  myBundle.summary)
+
+        // myBundle?.summary.let{
+        //      val summary = Jsoup.parse(it).text()
+        //      view.summary_text = summary
+        // } last version method for data binding
 
         if(myBundle?.vegetarian){
             binding.veganImageView.setColorFilter(ContextCompat.getColor(requireContext(),R.color.green))
