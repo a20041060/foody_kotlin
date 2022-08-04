@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import coil.load
 import com.example.foody.R
@@ -40,32 +42,21 @@ class OverviewFragment : Fragment() {
         //      view.summary_text = summary
         // } last version method for data binding
 
-        if(myBundle?.vegetarian){
-            binding.veganImageView.setColorFilter(ContextCompat.getColor(requireContext(),R.color.green))
-            binding.veganTextView.setTextColor(ContextCompat.getColor(requireContext(),R.color.green))
-        }
-
-        if(myBundle?.vegan){
-            binding.veganImageView.setColorFilter(ContextCompat.getColor(requireContext(),R.color.green))
-            binding.veganTextView.setTextColor(ContextCompat.getColor(requireContext(),R.color.green))
-        }
-
-        if(myBundle?.glutenFree){
-            binding.glutenFreeImageView.setColorFilter(ContextCompat.getColor(requireContext(),R.color.green))
-            binding.glutenFreeTextView.setTextColor(ContextCompat.getColor(requireContext(),R.color.green))
-        }
-
-        if(myBundle?.veryHealthy){
-            binding.healthImageView.setColorFilter(ContextCompat.getColor(requireContext(),R.color.green))
-            binding.healthTextView.setTextColor(ContextCompat.getColor(requireContext(),R.color.green))
-        }
-
-        if(myBundle?.cheap){
-            binding.cheapImageView.setColorFilter(ContextCompat.getColor(requireContext(),R.color.green))
-            binding.cheapTextView.setTextColor(ContextCompat.getColor(requireContext(),R.color.green))
-        }
+        updateColors(myBundle.vegetarian,binding.vegetarianTextView,binding.vegetarianImageView)
+        updateColors(myBundle.vegan,binding.veganTextView,binding.vegetarianImageView)
+        updateColors(myBundle.glutenFree,binding.glutenFreeTextView,binding.glutenFreeImageView)
+        updateColors(myBundle.dairyFree,binding.dairyFreeTextView,binding.dairyFreeImageView)
+        updateColors(myBundle.veryHealthy,binding.healthTextView,binding.healthImageView)
+        updateColors(myBundle.cheap,binding.cheapTextView,binding.cheapImageView)
 
         return binding.root
+    }
+
+    private fun updateColors(stateIsOn: Boolean, textView: TextView, imageView:ImageView){
+        if(stateIsOn){
+            textView.setTextColor(ContextCompat.getColor(requireContext(),R.color.green))
+            imageView.setColorFilter(ContextCompat.getColor(requireContext(),R.color.green))
+        }
     }
 
     override fun onDestroyView() {
